@@ -1,0 +1,42 @@
+From 1b080fdcb96455cdfa0f955cc7f24f7e51da0639 Mon Sep 17 00:00:00 2001
+From: Alexander Grund <github@grundis.de>
+Date: Mon, 28 Sep 2020 16:39:48 +0000
+Subject: [PATCH] Make relative path variables of type STRING
+
+When the type is PATH an absolute path is expected and user-defined
+values are converted into absolute paths relative to the current directory.
+
+Fixes #1990
+
+(cherry picked from commit a967fadb21c17622c6cdec13ad9c827054624eb4)
+---
+ CMakeLists.txt | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+--- a/CMakeLists.txt	2021-08-19 04:41:58.000000000 +0800
++++ b/CMakeLists.txt	2022-06-14 11:24:31.569759300 +0800
+@@ -427,20 +427,20 @@
+ 
+ if(EIGEN_INCLUDE_INSTALL_DIR AND NOT INCLUDE_INSTALL_DIR)
+   set(INCLUDE_INSTALL_DIR ${EIGEN_INCLUDE_INSTALL_DIR}
+-      CACHE PATH "The directory relative to CMAKE_INSTALL_PREFIX where Eigen header files are installed")
++      CACHE STRING "The directory relative to CMAKE_INSTALL_PREFIX where Eigen header files are installed")
+ else()
+   set(INCLUDE_INSTALL_DIR
+       "${CMAKE_INSTALL_INCLUDEDIR}/eigen3"
+-      CACHE PATH "The directory relative to CMAKE_INSTALL_PREFIX where Eigen header files are installed"
++      CACHE STRING "The directory relative to CMAKE_INSTALL_PREFIX where Eigen header files are installed"
+       )
+ endif()
+ set(CMAKEPACKAGE_INSTALL_DIR
+     "${CMAKE_INSTALL_DATADIR}/eigen3/cmake"
+-    CACHE PATH "The directory relative to CMAKE_INSTALL_PREFIX where Eigen3Config.cmake is installed"
++    CACHE STRING "The directory relative to CMAKE_INSTALL_PREFIX where Eigen3Config.cmake is installed"
+     )
+ set(PKGCONFIG_INSTALL_DIR
+     "${CMAKE_INSTALL_DATADIR}/pkgconfig"
+-    CACHE PATH "The directory relative to CMAKE_INSTALL_PREFIX where eigen3.pc is installed"
++    CACHE STRING "The directory relative to CMAKE_INSTALL_PREFIX where eigen3.pc is installed"
+     )
+ 
+ foreach(var INCLUDE_INSTALL_DIR CMAKEPACKAGE_INSTALL_DIR PKGCONFIG_INSTALL_DIR)
